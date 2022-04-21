@@ -3,9 +3,21 @@
 **NOTE: This set of projects require Zephyr Version 2.7.**  
 **      This also implies that zephyr-sdk-0.13.1 be installed or updated. **
 
-This project contains examples on how to use the Ultra Wideband (UWB) and Bluetooth hardware based DWM1001 module together with Zephyr RTOS. It's an adaptation of Decawave's examples distributed along with their driver. 
 
-This project is a clone of the Decawave's Zephyr project, in response to the original code not being buildable with the latest versions of Zephyr. 
+**NOTE: The following projects have been tested with Zephyr 3.0.99, using SDK 0.14.1 **  
+
+These examples were sucsessfully built with sdk 0.14.1 using weat build system, and not cmake. Please see the build commands used in the build section below
+
+ - Example 1 - transmission
+  - [x] ex_01a_simple_tx
+ - Example 5 - double-sided two-way ranging
+  - [x] ex_05a_ds_twr_init
+  - [X] ex_05b_ds_twr_resp
+  - [X] ex_05c_ds_twr_resp_ble
+
+This project contains examples on how to use the Ultra Wideband (UWB) and Bluetooth hardware based DWM1001 module together with Zephyr RTOS. It's an adaptation of Decawave's examples distributed along with their driver.
+
+This project is a clone of the Decawave's Zephyr project, in response to the original code not being buildable with the latest versions of Zephyr.
 
 This project assumes some familiarity with Zephyr.  Zephyr is not too difficult to install and learn, but there are good tutorials available which explain how to establish a working version of Zephyr on your development system.
 
@@ -125,6 +137,13 @@ And we actually build or firmware with `make`:
     make
 ```
 
+** NOTE: the following commands have been used to build using west **  
+
+Assuming this repository is located in ~/dwm1001 and zephyr project in ´~/zephyrproject/zephyr' the following example describe how to build using west
+```
+west build -p auto -b nrf52_dwm1001 ../../dwm1001/examples/ex_01a_simple_tx
+```
+
 ### Flash
 Now let's flash the binary file that we just built onto the board. 
 Make sure you have nrfjprog properly installed and that it is in the system PATH.
@@ -132,6 +151,13 @@ Make sure you have nrfjprog properly installed and that it is in the system PATH
 #### Program the binary file on the board:
 ```
 make flash
+```
+
+** NOTE: the following commands have been used to flash using west **  
+
+From within ´~/zephyrproject/zephyr' folder you can build the examples using west
+```
+west flash
 ```
 
 ### Console Messages (JLink RTT Console)
