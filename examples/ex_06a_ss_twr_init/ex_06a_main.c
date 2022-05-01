@@ -45,7 +45,7 @@ LOG_MODULE_REGISTER(main);
 #define APP_NAME "SS TWR INIT v1.4\n"
 
 /* Inter-ranging delay period, in milliseconds. */
-#define RNG_DELAY_MS 1000
+#define RNG_DELAY_MS 200
 
 /* Default communication configuration. */
 static dwt_config_t config = {
@@ -67,11 +67,12 @@ static dwt_config_t config = {
 #define RX_ANT_DLY 16436
 
 /* Frames used in the ranging process. See NOTE 3 below. */
-static uint8 tx_poll_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'W', 'A', 'V', 'E', 
-                              0xE0, 0, 0};
-static uint8 rx_resp_msg[] = {0x41, 0x88, 0, 0xCA, 0xDE, 'V', 'E', 'W', 'A', 
-                              0xE1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+static uint8 tx_poll_msg[2] = {{0x41, 0x88, 0, 0xCA, 0xDE, 'R', '1', 'I', '1', 0xE0, 0, 0},
+                               {0x41, 0x88, 0, 0xCA, 0xDE, 'R', '2', 'I', '1', 0xE0, 0, 0}};
+static uint8 rx_resp_msg[2] = {
+    {0x41, 0x88, 0, 0xCA, 0xDE, 'I', '1', 'R', '1', 0xE1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    {0x41, 0x88, 0, 0xCA, 0xDE, 'I', '1', 'R', '2', 0xE1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+    
 /* Length of the common part of the message (up to and including the function code, 
  * see NOTE 3 below. 
  */
@@ -107,7 +108,7 @@ static uint32 status_reg = 0;
 /* Delay between frames, in UWB microseconds. See NOTE 1 below. */
 #define POLL_TX_TO_RESP_RX_DLY_UUS 140
 /* Receive response timeout. See NOTE 5 below. */
-#define RESP_RX_TIMEOUT_UUS 510
+#define RESP_RX_TIMEOUT_UUS 1010//510
 
 /* Speed of light in air, in metres per second. */
 #define SPEED_OF_LIGHT 299702547
@@ -264,7 +265,7 @@ int dw_main(void) {
                 distance = tof * SPEED_OF_LIGHT;
 
                 /* Display computed distance on console. */
-                sprintf(dist_str, "DIST: %3.2f m\n", distance);
+                sprintf(dist_str, "D: %3.2f m\n", distance);
                 printk("%s", dist_str);
             }
         }
