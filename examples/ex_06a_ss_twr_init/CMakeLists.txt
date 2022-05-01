@@ -4,7 +4,8 @@ set(BOARD_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../..")
 set(DTS_ROOT   "${CMAKE_CURRENT_SOURCE_DIR}/../..")
 set(BOARD nrf52_dwm1001)
 
-include($ENV{ZEPHYR_BASE}/cmake/app/boilerplate.cmake NO_POLICY_SCOPE)
+#include($ENV{ZEPHYR_BASE}/cmake/app/boilerplate.cmake NO_POLICY_SCOPE)
+find_package(Zephyr)
 project(zephyr-dwm1001)
 
 add_definitions(-DEX_06A_DEF)
